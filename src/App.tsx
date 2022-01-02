@@ -1,9 +1,16 @@
 import React from "react";
 
+import { Managers } from "fishing-tools";
+
 import { Counter } from "./features/counter/Counter";
+
 import "./App.css";
 
 function App() {
+  Managers.SocketManager.add([
+    { host: `http://${process.env.SOCKET_HOST}:3000/`, instance: "socket-1" },
+  ]);
+
   return (
     <div className="App">
       <header className="App-header">
