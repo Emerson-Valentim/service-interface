@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+
+  #Redis configuration
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - fishing-worker
+
+  #Client configuration
+  bull:
+    build:
+      context: ./
+    env_file:
+      - .env
+    networks:
+      - fishing-worker
+    volumes:
+      - ./:/home/ubuntu
+    command: yarn start:local
+    depends_on:
+      - redis
+
+networks:
+  fishing-worker:
+    driver: bridge
