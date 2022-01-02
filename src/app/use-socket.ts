@@ -1,11 +1,11 @@
-import { Managers } from "fishing-tools";
+import { io } from "socket.io-client";
 
-import SocketHandler from "./@types/socket-handler";
-
-const SocketManager = Managers.SocketManager;
+const socketHosts: { [key: string]: string } = {
+  "socket-1": `http://${process.env.REACT_APP_SOCKET_HOST}:3000/`,
+};
 
 function useSocket(instance: string) {
-  const handler = new SocketHandler(SocketManager.get(instance));
+  const handler = io(socketHosts[instance]);
 
   return handler;
 }

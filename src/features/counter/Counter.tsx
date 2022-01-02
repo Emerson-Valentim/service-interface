@@ -8,6 +8,10 @@ export function Counter() {
   const socket = useSocket("socket-1");
 
   useEffect(() => {
+    socket.on("client:fish:create", (fish) => {
+      setFish(fish.specie);
+    });
+
     return () => {
       socket.disconnect();
     };
